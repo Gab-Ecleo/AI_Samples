@@ -40,15 +40,13 @@ public class Offlink_Jump : MonoBehaviour
     {
         while (true)
         {
+            //Teleportation
             agent.autoTraverseOffMeshLink = false;
+
             if (agent.isOnOffMeshLink)
             {
                 switch (_method)
                 {
-                    case OffmeshLinkMoveMethod.Teleport:
-
-                        break;
-
                     case OffmeshLinkMoveMethod.NormalSpeed:
                         StartCoroutine(NormalSpeed(agent));
                         break;
