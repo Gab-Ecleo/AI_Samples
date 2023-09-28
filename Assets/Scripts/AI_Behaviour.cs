@@ -61,6 +61,10 @@ public class AI_Behaviour : MonoBehaviour
                 }
             }
         }
+        if (gameObject.layer.Equals(LayerMask.NameToLayer("Walls_1")))
+        {
+            transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+        }
     }
 
     private  void MoveToRandomWaypoint()

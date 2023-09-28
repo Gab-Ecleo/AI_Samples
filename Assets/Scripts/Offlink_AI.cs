@@ -9,11 +9,12 @@ public enum OffmeshLinkMoveMethod
     Teleport,
     NormalSpeed,
     Parabola,
-    Curve
+    Curve,
+    Climb
     
 }
 
-public class Offlink_Jump : MonoBehaviour
+public class Offlink_AI : MonoBehaviour
 {
 
     #region variables
@@ -57,6 +58,10 @@ public class Offlink_Jump : MonoBehaviour
 
                     case OffmeshLinkMoveMethod.Curve:
                         StartCoroutine(Curve(agent, _jumpTime));
+                        break;
+
+                    case OffmeshLinkMoveMethod.Climb:
+                        StartCoroutine(Climb(agent));
                         break;
 
                     default:
@@ -117,6 +122,27 @@ public class Offlink_Jump : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    IEnumerator Climb(NavMeshAgent agent)
+    {
+        OffMeshLinkData data = agent.currentOffMeshLinkData;
+        Vector3 endPos = data.endPos + Vector3.up * agent.baseOffset;
+        Vector3 targetdir = endPos - agent.transform.position; 
+        float angle = Mathf.Atan2(targetdir.y, targetdir.z) * Mathf.Rad2Deg;
+
+        while (agent.transform.position != endPos)
+        {
+
+            Debug.Log("Climbing");
+            agent.transform.SetPositionAndRotation(
+                Vector3.MoveTowards(
+                    agent.transform.position,
+                    endPos, 
+                    agent.speed * Time.deltaTime), 
+                Quaternion.Euler(0, angle, 0));
+        }
+        yield return null;
     }
 
     #endregion
