@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class Patrol : StateMachineBehaviour
 {
-    NavMeshAgent agent;
-    float idleDuration = 5;
+        NavMeshAgent agent;
+        float idleDuration = 5;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
